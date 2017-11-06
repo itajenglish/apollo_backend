@@ -5,6 +5,7 @@ type Author {
   lastName: String
   posts: [Post]
 }
+
 type Post {
   id: Int
   title: String
@@ -12,11 +13,22 @@ type Post {
   views: Int
   author: Author
 }
+
+input PostInput {
+  author: String
+  text: String
+}
+
 type Query {
   author(firstName: String, lastName: String): Author
   getFortuneCookie: String
   authors: [Author]
 }
+
+type Mutation {
+  createPost(input: PostInput): Post
+}
+
 schema {
   query: Query
 }
