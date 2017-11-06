@@ -8,6 +8,9 @@ const resolvers = {
     getFortuneCookie() {
       return FortuneCookie.getOne();
     },
+    authors() {
+      return Author.findAll({});
+    },
   },
   Author: {
     posts(author) {
