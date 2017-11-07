@@ -1,4 +1,4 @@
-import { Author, FortuneCookie } from './connectors';
+import { Author, Post, FortuneCookie } from './connectors';
 
 const resolvers = {
   Query: {
@@ -20,6 +20,11 @@ const resolvers = {
   Post: {
     author(post) {
       return post.getAuthor();
+    },
+  },
+  Mutation: {
+    createPost: (_, args) => {
+      return Post.create(args);
     },
   },
 };

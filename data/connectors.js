@@ -3,9 +3,8 @@ import casual from 'casual';
 import _ from 'lodash';
 import rp from 'request-promise';
 
-const db = new Sequelize('blog', null, null, {
-  dialect: 'sqlite',
-  storage: './blog.sqlite',
+const db = new Sequelize('graphql_db', 'tajenglish', null, {
+  dialect: 'postgres',
 });
 
 const AuthorModel = db.define('author', {
@@ -16,6 +15,7 @@ const AuthorModel = db.define('author', {
 const PostModel = db.define('post', {
   title: { type: Sequelize.STRING },
   text: { type: Sequelize.STRING },
+  creator: { type: Sequelize.STRING },
 });
 
 // add this somewhere in the middle
@@ -34,7 +34,7 @@ PostModel.belongsTo(AuthorModel);
 
 // create mock data with a seed, so we always get the same
 casual.seed(123);
-db.sync({ force: true }).then(() => {
+db.sync({ force: false }).then(() => {
   _.times(10, () => {
     return AuthorModel.create({
       firstName: casual.first_name,
@@ -43,6 +43,7 @@ db.sync({ force: true }).then(() => {
       return author.createPost({
         title: `A post by ${author.firstName}`,
         text: casual.sentences(3),
+        creator: 'lol',
       });
     });
   });

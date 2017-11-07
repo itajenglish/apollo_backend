@@ -11,11 +11,12 @@ type Post {
   title: String
   text: String
   views: Int
+  creator: String
   author: Author
 }
 
 input PostInput {
-  author: String
+  creator: String
   text: String
 }
 
@@ -26,11 +27,12 @@ type Query {
 }
 
 type Mutation {
-  createPost(input: PostInput): Post
+  createPost(creator: String, text: String): Post
 }
 
 schema {
   query: Query
+  mutation: Mutation
 }
 `;
 
